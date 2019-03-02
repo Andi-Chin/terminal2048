@@ -1,5 +1,6 @@
 from random import randint as rd
 import time
+import subprocess as sbp
 class Block():
 	def __init__(self, value):#0 means empty, 69 means put in random
 
@@ -177,10 +178,13 @@ def play():
 		elif direction == 's':
 			Matrix.moveDown()
 
+
 		Matrix.spawnBlock()
+		sbp.call('clear', shell=True)
 		Matrix.pMatrix()
 
 		Matrix.setCombine(True)
+
 
 play()
 
