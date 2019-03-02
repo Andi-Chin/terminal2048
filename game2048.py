@@ -137,13 +137,13 @@ def play():
 			direction = input('please move: ')
 
 			if direction == '':
-				# print('plz give proper inputs "w, a, s, d" to move the blocks')
+				print('plz give proper inputs "w, a, s, d" to move the blocks')
 				continue
 
 			if direction in 'adws':
 				properInput = True
 			else:
-				# print('plz give proper inputs "w, a, s, d" to move the blocks')
+				print('plz give proper inputs "w, a, s, d" to move the blocks')
 				pass
 
 		if direction == 'a':
