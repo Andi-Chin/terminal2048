@@ -199,10 +199,11 @@ play()
 
 # 	Matrix.spawnBlock()
 	
-# 	if iterations % 1000 == 0:
-# 		Matrix.pMatrix()
-# 		print('******************************')
-# 		print('iterations: %s' % (iterations))
+# 	
+# 	Matrix.pMatrix()
+# 	print('******************************')
+# 	print('iterations: %s' % (iterations))
+#	time.sleep(0.5)
 
 # 	iterations += 1
 
