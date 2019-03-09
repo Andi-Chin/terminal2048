@@ -1,7 +1,11 @@
 import random
 from random import randint as rd
 import subprocess as sbp
+from datetime import datetime
+import time
 
+
+startTime = datetime.now()
 
 
 class Block():
@@ -14,8 +18,6 @@ class Block():
 		return 'value: %s' % (self.value)
 
 
-
-
 size = int(input('size: '))
 
 
@@ -24,26 +26,27 @@ class Matrix():
 
 	matrix = [[Block(0) for x in range(size)] for y in range(size)]
 	
-	# matrix = 	[[Block(0), Block(0), Block(0), Block(0)],
-	# 			[Block(0) , Block(0), Block(0), Block(0)],
+	# matrix = 	[[Block(0) , Block(0), Block(0), Block(0)],
 	# 			[Block(0) , Block(0) , Block(0) , Block(0)],
 	# 			[Block(0) , Block(0) , Block(0) , Block(0)],
-	# 			[Block(0) , Block(0) , Block(0), Block(0)]]
+	# 			[Block(2048) , Block(256) , Block(16), Block(16)]]
 
-
-	def pMatrix():
+	def biggest():
 		biggest = Matrix.matrix[0][0].value
 		for y in range(size):
 			for x in range(size):
 				if Matrix.matrix[y][x].value > biggest:
 					biggest = Matrix.matrix[y][x].value
+		return biggest
 
+	def pMatrix():
 		
 
 		for y in range(size):
 			for x in range(size):
 
 				num = Matrix.matrix[y][x].value
+				biggest = Matrix.biggest()
 				padding = (len(str(biggest)) - len(str(num))) * ' '
 				if num == 0:
 					print('.', end = padding + ' ')
@@ -52,11 +55,14 @@ class Matrix():
 					print(num, end = padding + ' ')
 					
 				if (x + 1) % size == 0:
+
 					print('\n')
-		print()
+
 
 	def lose():		
 		print('you lose!')
+		print('time lapsed: %s' % (datetime.now() - startTime))
+		Matrix.pMatrix()
 		exit()
 	def availableSquares():
 		result = []
@@ -224,12 +230,14 @@ def play():
 	Matrix.spawnBlock()
 	Matrix.spawnBlock()
 	Matrix.pMatrix()
+
+	win = False
 	
 	while True:
 
 		properInput = False
 		while not properInput:
-			direction = input('please move: ')
+			direction = input('mv: ')
 
 			if direction == '':
 				# print('plz give proper inputs "w, a, s, d" to move the blocks')
@@ -256,33 +264,53 @@ def play():
 
 		Matrix.setCombine(True)
 
+		if not win and Matrix.biggest() == 2048:
+			print('you win!')
+			win = True
+			time.sleep(2)
+
+
 
 
 #auto play
-def autoPlay():
+# def autoPlay():
 
-	Matrix.spawnBlock()
-	Matrix.spawnBlock()
-	Matrix.pMatrix()
-	
-	while True:
+# 	Matrix.spawnBlock()
+# 	Matrix.spawnBlock()
+# 	Matrix.pMatrix()
 
-		direction = random.choice(['a', 'd', 'w', 's'])
+# 	iterations = 0
+# 	while True:
 
-		if direction == 'a':
-			Matrix.moveLeft()
-		elif direction == 'd':
-			Matrix.moveRight()
-		elif direction == 'w':
-			Matrix.moveUp()
-		elif direction == 's':
-			Matrix.moveDown()
+# 		direction = random.choice(['a', 'd', 'w', 's'])
 
-		Matrix.spawnBlock()
-		# sbp.call('clear', shell=True)
-		Matrix.pMatrix()
+# 		if direction == 'a':
+# 			Matrix.moveLeft()
+# 		elif direction == 'd':
+# 			Matrix.moveRight()
+# 		elif direction == 'w':
+# 			Matrix.moveUp()
+# 		elif direction == 's':
+# 			Matrix.moveDown()
 
-		Matrix.setCombine(True)
-autoPlay()
+# 		Matrix.spawnBlock()
+# 		# sbp.call('clear', shell=True)
+
+# 		if iterations % 200 == 0:
+# 			Matrix.pMatrix()
+# 			print('*' * 50)
+			
+
+
+# 		Matrix.setCombine(True)
+
+		
+
+# 		iterations += 1
+
+
+
+play()
+
 
 
